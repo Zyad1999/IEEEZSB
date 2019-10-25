@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">IEEEZSB</string>
+    <string name="user_id">User ID</string>
+    <string name="name">Name</string>
+    <string name="community">Community</string>
+    <string name="phone">Phone</string>
+    <string name="personal_mail">Personal Mail</string>
+    <string name="ieee_email">IEEE Email</string>
 </resources>

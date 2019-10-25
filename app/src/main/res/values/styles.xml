@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- User Add Menu. -->
+    <style name="UserAddTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#808080</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+
+
 </resources>
