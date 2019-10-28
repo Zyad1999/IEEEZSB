@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ieeezsb.Activities.HomeActivity;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDbRef;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +41,34 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnLogin = findViewById(R.id.btn_login);
-
+        progressBar = findViewById(R.id.progressbar);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnLogin.setVisibility(View.INVISIBLE);
                 final String e_mail = email.getText().toString().trim();
                 final String pass_word = password.getText().toString();
 
                 if (TextUtils.isEmpty(e_mail) || TextUtils.isEmpty(pass_word)) {
                     Toast.makeText(LoginActivity.this, "All Fields are required!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    btnLogin.setVisibility(View.VISIBLE);
                 } else {
                     mAuth.signInWithEmailAndPassword(e_mail, pass_word).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                btnLogin.setVisibility(View.VISIBLE);
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 finish();
                             } else {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                btnLogin.setVisibility(View.VISIBLE);
                                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                             }
 
