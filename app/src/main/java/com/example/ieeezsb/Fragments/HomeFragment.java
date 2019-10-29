@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.ieeezsb.Adapters.UsersAdapter;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
+import com.example.ieeezsb.SpaceGrid;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -65,8 +66,11 @@ public class HomeFragment extends Fragment {
 
                 }
 
-                userAdapter = new UsersAdapter(getContext(), users, true);
+
                 recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.addItemDecoration(new SpaceGrid(2, 7, true));
+                userAdapter = new UsersAdapter(getContext(), users, true);
                 recyclerView.setAdapter(userAdapter);
 
 

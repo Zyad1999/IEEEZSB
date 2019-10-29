@@ -34,7 +34,6 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         profileImage = findViewById(R.id.profile_image1);
         memberName = findViewById(R.id.memberName);
         memberCommunity = findViewById(R.id.memberCommunity);
@@ -56,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (user.getProfileImage().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Glide.with(ProfileActivity.this).load(user.getProfileImage()).into(profileImage);
+                    Glide.with(getApplicationContext()).load(user.getProfileImage()).into(profileImage);
                 }
 
 

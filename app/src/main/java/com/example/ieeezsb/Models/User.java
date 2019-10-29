@@ -1,8 +1,10 @@
 package com.example.ieeezsb.Models;
 
-public class User {
-    private String name, about, email, personalMail, phone, community, chatStatus, profileImage, messagingToken, securityLevel, id;
+import java.util.Map;
 
+public class User {
+    private String name, about, email, personalMail, phone, community, profileImage, messagingToken, securityLevel, id;
+    private String chatStatus;
     public User(String name, String about, String email, String personalMail, String phone, String community, String chatStatus, String profileImage, String messagingToken, String securityLevel, String id) {
         this.name = name;
         this.about = about;
@@ -117,11 +119,11 @@ public class User {
                 ", personalMail='" + personalMail + '\'' +
                 ", phone='" + phone + '\'' +
                 ", community='" + community + '\'' +
-                ", chatStatus='" + chatStatus + '\'' +
                 ", profileImage='" + profileImage + '\'' +
                 ", messagingToken='" + messagingToken + '\'' +
                 ", securityLevel='" + securityLevel + '\'' +
                 ", id='" + id + '\'' +
+                ", chatStatus=" + chatStatus +
                 '}';
     }
 }

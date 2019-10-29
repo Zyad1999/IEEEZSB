@@ -32,7 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -91,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
 
-                    Glide.with(HomeActivity.this)
+                    Glide.with(getApplicationContext())
                             .load(user.getProfileImage())
                             .into(profileImage);
                 }
@@ -105,7 +108,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
+        status("online");
 
 
     }
@@ -156,22 +159,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         finish();
     }
 
-    private void status(String status) {
+    public void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("chatStatus", status);
-        reference.updateChildren(hashMap);
+        reference.child("chatStatus").setValue(status);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //status("online");
+        status("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // status("offline");
+        status("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        status("online");
     }
 }

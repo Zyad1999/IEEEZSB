@@ -56,7 +56,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
             if (user.getChatStatus().equals("online")) {
                 holder.imgOn.setVisibility(View.VISIBLE);
-                holder.imgOn.setVisibility(View.GONE);
+                holder.imgOff.setVisibility(View.GONE);
             } else {
                 holder.imgOn.setVisibility(View.GONE);
                 holder.imgOff.setVisibility(View.VISIBLE);
