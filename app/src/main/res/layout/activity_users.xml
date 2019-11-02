@@ -4,11 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsersActivity">
+    tools:context=".Activities.UsersActivity">
 
 
+    <include
+        android:id="@+id/add_user_toolbar"
+        layout="@layout/bar_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/add_user_toolbar"
         android:id="@+id/user_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -27,9 +31,9 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </RelativeLayout>
 
