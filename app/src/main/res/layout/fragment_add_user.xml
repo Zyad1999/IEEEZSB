@@ -148,6 +148,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:text="@android:string/cancel" />
 
 
@@ -158,6 +159,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:text="@string/add" />
 
 

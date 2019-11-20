@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.bumptech.glide.Glide;
 import com.example.ieeezsb.Fragments.CSROOMFragment;
 import com.example.ieeezsb.Fragments.HomeFragment;
+import com.example.ieeezsb.Fragments.SettingsFragment;
 import com.example.ieeezsb.LoginActivity;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
@@ -122,7 +122,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nav_settings:
                 getSupportActionBar().setTitle("Settings");
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new SettingsFragment()).commit();
                 break;
             case R.id.nav_chat:
                 getSupportActionBar().setTitle("CS ROOM");

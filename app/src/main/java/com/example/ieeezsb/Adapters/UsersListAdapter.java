@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.ieeezsb.Fragments.SettingsFragment.isValidContextForGlide;
+
 public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.ViewHolder> {
 
 
@@ -59,7 +61,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
         holder.community.setText(currentUser.getCommunity());
 
         // put user's Photo.
-        if (!currentUser.getProfileImage().equals("null")) {
+        if (!currentUser.getProfileImage().equals("null") && isValidContextForGlide(mContext)) {
             holder.shortName.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(currentUser.getProfileImage())
@@ -91,7 +93,6 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
             holder.imgOffline.setVisibility(View.VISIBLE);
             holder.imgOnline.setVisibility(View.GONE);
         }
-
 
 
     }
