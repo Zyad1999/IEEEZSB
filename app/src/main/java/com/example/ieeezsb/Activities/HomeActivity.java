@@ -18,6 +18,7 @@ import com.example.ieeezsb.Fragments.CSROOMFragment;
 import com.example.ieeezsb.Fragments.HomeFragment;
 import com.example.ieeezsb.Fragments.SettingsFragment;
 import com.example.ieeezsb.LoginActivity;
+import com.example.ieeezsb.Models.AllMethodsCommunity;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
 import com.google.android.material.navigation.NavigationView;
@@ -83,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 user = dataSnapshot.getValue(User.class);
                 nameNav.setText(user.getName());
                 emailNav.setText(user.getEmail());
-
+                AllMethodsCommunity.communityOfUser = user.getCommunity();
                 if (user.getProfileImage().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
@@ -126,9 +127,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         new SettingsFragment()).commit();
                 break;
             case R.id.nav_chat:
-                getSupportActionBar().setTitle("CS ROOM");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new CSROOMFragment()).commit();
+                chatToOpen();
                 break;
             case R.id.nav_home:
                 getSupportActionBar().setTitle("Home");
@@ -179,5 +178,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         status("online");
+    }
+
+    public void chatToOpen(){
+        if(AllMethodsCommunity.communityOfUser.equals("CS") || AllMethodsCommunity.communityOfUser.equals("CS Chairman")){
+            getSupportActionBar().setTitle("CS ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new CSROOMFragment("CS")).commit();
+        } else if (AllMethodsCommunity.communityOfUser.equals("RAS")){
+
+            getSupportActionBar().setTitle("RAS ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new CSROOMFragment("RAS")).commit();
+
+
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("Logistics") ){
+
+            getSupportActionBar().setTitle("Logistics ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new CSROOMFragment("Logistics")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("Media")){
+
+            getSupportActionBar().setTitle("Media ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new CSROOMFragment("Media")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("Markting")){
+
+            getSupportActionBar().setTitle("Markting ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new CSROOMFragment("Markting")).commit();
+
+        }
     }
 }

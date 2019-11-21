@@ -75,6 +75,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageA
                     messageAdapterViewHolder.profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
 
+                    
+
                     Glide.with(context)
                             .load(user.getProfileImage())
                             .into(messageAdapterViewHolder.profileImage);

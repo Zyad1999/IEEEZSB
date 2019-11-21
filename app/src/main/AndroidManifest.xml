@@ -16,7 +16,7 @@
             android:parentActivityName=".Activities.HomeActivity" />
         <activity
             android:name=".Activities.ProfileActivity"
-            android:parentActivityName=".Activities.HomeActivity" />
+            android:parentActivityName=".Activities.UsersActivity" />
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"

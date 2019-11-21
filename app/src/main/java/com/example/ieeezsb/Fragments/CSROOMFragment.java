@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.ieeezsb.Activities.HomeActivity;
 import com.example.ieeezsb.Adapters.MessageAdapter;
 import com.example.ieeezsb.Models.MessageModel;
 import com.example.ieeezsb.Models.User;
@@ -42,7 +44,12 @@ public class CSROOMFragment extends Fragment {
     private MessageAdapter msgAdapter ;
     private User user ;
     private List<MessageModel> msgList ;
+    private String roomDatabase = null;
 
+
+    public CSROOMFragment(String roomDatabase){
+        this.roomDatabase = roomDatabase;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +85,7 @@ public class CSROOMFragment extends Fragment {
 
 
 
-        messagesDb = database.getReference("messages").child("CS");
+        messagesDb = database.getReference("messages").child(roomDatabase);
 
         messagesDb.addChildEventListener(new ChildEventListener() {
             @Override
@@ -148,12 +155,10 @@ public class CSROOMFragment extends Fragment {
     private void displayMessages(List<MessageModel> msgList) {
 
         rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
-        msgAdapter = new MessageAdapter(getContext(), msgList);
+        msgAdapter = new MessageAdapter(getActivity().getApplicationContext(), msgList);
         rvMessages.setAdapter(msgAdapter);
 
     }
-
-
 
 
 }
