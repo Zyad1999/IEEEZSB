@@ -2,30 +2,28 @@ package com.example.ieeezsb.Models;
 
 public class MessageModel {
 
-    private String name, key, message;
+    private String senderId, key, message;
 
-    public MessageModel(String name, String key, String message) {
-        this.name = name;
+    public MessageModel(String senderId, String key, String message) {
+        this.senderId = senderId;
         this.key = key;
         this.message = message;
     }
 
-
-
-    public MessageModel(String name, String message) {
-        this.name = name;
+    public MessageModel(String senderId, String message) {
+        this.senderId = senderId;
         this.message = message;
     }
 
     public MessageModel() {
     }
 
-    public String getName() {
-        return name;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
     public String getKey() {
@@ -43,10 +41,11 @@ public class MessageModel {
     public void setMessage(String message) {
         this.message = message;
     }
+
     @Override
     public String toString() {
         return "MessageModel{" +
-                "name='" + name + '\'' +
+                "senderId='" + senderId + '\'' +
                 ", key='" + key + '\'' +
                 ", message='" + message + '\'' +
                 '}';

@@ -64,7 +64,7 @@ public class CSROOMFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(msgEditText.getText().toString())){
-                    MessageModel msg = new MessageModel(user.getName(),msgEditText.getText().toString());
+                    MessageModel msg = new MessageModel(user.getId(),msgEditText.getText().toString());
                     msgEditText.setText("");
                     messagesDb.push().setValue(msg);
 
@@ -164,7 +164,7 @@ public class CSROOMFragment extends Fragment {
     private void displayMessages(List<MessageModel> msgList) {
 
         rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
-        msgAdapter = new MessageAdapter(getContext(), msgList, messagesDb);
+        msgAdapter = new MessageAdapter(getContext(), msgList);
         rvMessages.setAdapter(msgAdapter);
 
     }
