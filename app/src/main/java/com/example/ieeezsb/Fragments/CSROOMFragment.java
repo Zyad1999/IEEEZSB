@@ -69,7 +69,7 @@ public class CSROOMFragment extends Fragment {
                     messagesDb.push().setValue(msg);
 
                 } else {
-                    Toast.makeText(getContext(), "You Cannot Send Blank Message", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "You Cannot Send Blank Message!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
