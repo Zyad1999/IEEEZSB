@@ -1,5 +1,6 @@
 package com.example.ieeezsb.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -71,6 +72,8 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 AddUserFragment addUserFragment = new AddUserFragment();
                 addUserFragment.setArguments(getIntent().getExtras());
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -78,6 +81,11 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
                         .add(R.id.fragment_container, addUserFragment)
                         .addToBackStack(null)
                         .commit();
+
+
+
+
+
             }
         });
 

@@ -16,9 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ieeezsb.Activities.HomeActivity;
 import com.example.ieeezsb.Adapters.MessageAdapter;
-import com.example.ieeezsb.Models.AllMethods;
 import com.example.ieeezsb.Models.MessageModel;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
@@ -32,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CSROOMFragment extends Fragment {
@@ -79,20 +76,7 @@ public class CSROOMFragment extends Fragment {
         user.setId(currentUser.getUid());
 
 
-        database.getReference("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-                user.setId(currentUser.getUid());
-                AllMethods.name = user.getName();
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         messagesDb = database.getReference("messages").child("CS");
 

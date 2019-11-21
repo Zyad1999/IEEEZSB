@@ -11,19 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".Activities.UsersActivity"
-            android:parentActivityName=".Activities.HomeActivity"></activity>
+            android:parentActivityName=".Activities.HomeActivity" />
         <activity
             android:name=".Activities.ProfileActivity"
-            android:parentActivityName=".Activities.HomeActivity"></activity>
+            android:parentActivityName=".Activities.HomeActivity" />
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

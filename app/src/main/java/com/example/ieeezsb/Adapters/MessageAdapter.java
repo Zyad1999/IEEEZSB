@@ -1,21 +1,16 @@
 package com.example.ieeezsb.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.ieeezsb.Models.AllMethods;
 import com.example.ieeezsb.Models.MessageModel;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
@@ -66,7 +61,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageA
         MessageModel messageModel = messages.get(i);
         messageAdapterViewHolder.showMessage.setText(messageModel.getMessage());
 
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        storageReference = FirebaseStorage.getInstance().getReference("ProfileImages");
         reference = FirebaseDatabase.getInstance().getReference("users").child(messageModel.getSenderId());
 
 

@@ -31,7 +31,7 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
 
     private MyFragmentListener mListener;
     private EditText nameEditText, idEditText, phoneEditText,
-            personalMailEditText, emailEditText;
+            personalMailEditText, emailEditText, passwordIeee;
     private String name, id, phone, personalMail,
             email, community;
     private Spinner communitySpinner;
@@ -67,7 +67,7 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
         phoneEditText = rootView.findViewById(R.id.phone_edit_text);
         personalMailEditText = rootView.findViewById(R.id.personal_mail_edit_text);
         emailEditText = rootView.findViewById(R.id.ieee_email_edit_text);
-
+        passwordIeee = rootView.findViewById(R.id.passwordIeee);
 
         // Create Community List for Spinner.
         List<String> communityList = getCommunity();

@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         fUser = firebaseAuth.getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        storageReference = FirebaseStorage.getInstance().getReference("ProfileImages");
         reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener() {
