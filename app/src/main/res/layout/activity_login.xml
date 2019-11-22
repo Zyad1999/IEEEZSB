@@ -10,39 +10,78 @@
         android:id="@+id/add_user_toolbar"
         layout="@layout/bar_layout" />
 
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:src="@drawable/ieee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
+        android:layout_below="@id/add_user_toolbar"
+        android:layout_marginTop="192dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_below="@id/add_user_toolbar"
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/loo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login to Your Account"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/email"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            app:met_floatingLabel="normal" />
+            android:layout_below="@id/loo"
+            android:layout_marginTop="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/password"
+            <ImageView
+                android:id="@+id/user_ic_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_user" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-23dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/user_ic_image_view"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                app:met_floatingLabel="normal" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:met_floatingLabel="normal" />
+            android:layout_marginTop="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
 
+            <ImageView
+                android:id="@+id/user_id_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/user_id_edit_text"
+                android:hint="Password"
+                android:inputType="textPassword"
+                app:met_floatingLabel="normal" />
+
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
