@@ -24,6 +24,7 @@
     <string name="title_activity_profile">Profile</string>
     <string name="action_settings2">Settings</string>
     <string name="add">Add</string>
+    <string name="Cancel">Cancel</string>
     <string name="can_be_empty">This field can be empty</string>
 
 </resources>
