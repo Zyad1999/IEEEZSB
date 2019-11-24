@@ -2,6 +2,8 @@ package com.example.ieeezsb.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,8 +47,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference reference;
     private StorageReference storageReference;
     private User user;
-
-
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +57,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+
+
         View headerView = navigationView.getHeaderView(0);
         nameNav = headerView.findViewById(R.id.nameNav);
         emailNav = headerView.findViewById(R.id.emailNav);
@@ -86,6 +92,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 emailNav.setText(user.getEmail());
                 AllMethodsCommunity.communityOfUser = user.getCommunity();
                 AllMethodsCommunity.securityLevel = user.getSecurityLevel();
+                hideItemMenu();
+
                 if (user.getProfileImage().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
@@ -105,6 +113,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         status("online");
+
+
+
 
 
     }
@@ -129,6 +140,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_chat:
                 chatToOpen();
+                break;
+            case R.id.nav_chat_board:
+                openChatBoard();
                 break;
             case R.id.nav_home:
                 getSupportActionBar().setTitle("Home");
@@ -167,18 +181,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         status("online");
+        hideItemMenu();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         status("offline");
+        hideItemMenu();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         status("online");
+        hideItemMenu();
+
     }
 
     public void chatToOpen(){
@@ -230,12 +248,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ROOMSFragment("MandE")).commit();
 
-        }else if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.equals("High Board")){
+        }
+
+
+    }
+
+    public  void openChatBoard(){
+        if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.equals("High Board")){
 
             getSupportActionBar().setTitle("Board ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ROOMSFragment("Board")).commit();
 
         }
+
     }
+
+    void hideItemMenu(){
+        Menu menu = navigationView.getMenu();
+        MenuItem target = menu.findItem(R.id.nav_chat_board);
+        if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.contains("Board")){
+
+            target.setVisible(true);
+        } else {
+            target.setVisible(false);
+        }
+
+    }
+
 }

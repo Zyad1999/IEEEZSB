@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -11,6 +12,12 @@
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
             android:title="Chat" />
+
+        <item
+            android:id="@+id/nav_chat_board"
+            android:icon="@drawable/ic_chat"
+            android:title="Board Chat" />
+
 
         <item
             android:id="@+id/nav_users"
