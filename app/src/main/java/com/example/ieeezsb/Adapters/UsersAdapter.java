@@ -5,100 +5,148 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ieeezsb.Activities.ProfileActivity;
+import com.example.ieeezsb.Activities.UsersActivity;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.ieeezsb.Fragments.SettingsFragment.isValidContextForGlide;
+
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
+
+    private static final String TAG = "UsersAdapter";
+
+    private ArrayList<User> usersList;
     private Context mContext;
-    private List<User> mUsers;
-    private boolean isChat;
 
-    public UsersAdapter(Context mContext, List<User> musers, boolean isChat) {
-        this.mUsers = musers;
+    private User currentUser;
+
+
+    public UsersAdapter(Context mContext, ArrayList<User> usersList) {
+        this.usersList = usersList;
         this.mContext = mContext;
-        this.isChat = isChat;
-
     }
-
 
     @NonNull
     @Override
-    public UsersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false);
-        return new UsersAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(mContext).inflate(
+                R.layout.user_item_list, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersAdapter.ViewHolder holder, int position) {
-        final User user = mUsers.get(position);
-        holder.memberName.setText(user.getName());
-        holder.memberCommunity.setText(user.getCommunity());
-        if (user.getProfileImage().equals("null")) {
-            holder.memberProfileImage.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(mContext).load(user.getProfileImage()).into(holder.memberProfileImage);
-        }
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-        if (isChat) {
 
-            if (user.getChatStatus().equals("online")) {
-                holder.imgOn.setVisibility(View.VISIBLE);
-                holder.imgOff.setVisibility(View.GONE);
+        // Get Current User.
+        currentUser = usersList.get(position);
+
+        // put user's Name.
+        holder.name.setText(currentUser.getName());
+
+        // put user's Position.
+        holder.community.setText(currentUser.getCommunity());
+
+
+        if (currentUser.getProfileImage() != null) {
+            // put user's Photo.
+            if (!currentUser.getProfileImage().equals("null") && isValidContextForGlide(mContext)) {
+                holder.shortName.setVisibility(View.GONE);
+                Glide.with(mContext)
+                        .load(currentUser.getProfileImage())
+                        .into(holder.profileImage);
             } else {
-                holder.imgOn.setVisibility(View.GONE);
-                holder.imgOff.setVisibility(View.VISIBLE);
+                holder.shortName.setVisibility(View.VISIBLE);
+                holder.profileImage.setImageResource(R.color.colorPrimary);
+                holder.shortName.setText(getShortName());
             }
-
-        } else {
-            holder.imgOn.setVisibility(View.GONE);
-            holder.imgOff.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ProfileActivity.class);
-                intent.putExtra("userid", user.getId());
-                mContext.startActivity(intent);
 
+        // Intent to the selected user profile.
+        holder.userItemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!UsersActivity.isFragmentRun) {
+                    Intent intent = new Intent(mContext, ProfileActivity.class);
+                    intent.putExtra("userid", usersList.get(position).getId());
+                    mContext.startActivity(intent);
+                }
             }
         });
+
+
+        // Get user's Status
+        if (currentUser.getChatStatus().equals("online")) {
+            holder.imgOnline.setVisibility(View.VISIBLE);
+            holder.imgOffline.setVisibility(View.GONE);
+        } else {
+            holder.imgOffline.setVisibility(View.VISIBLE);
+            holder.imgOnline.setVisibility(View.GONE);
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return usersList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView memberName, memberCommunity;
-        public CircleImageView memberProfileImage;
-        public ImageView imgOn, imgOff;
+
+        TextView name;
+        TextView community;
+        TextView shortName;
+
+        CircleImageView profileImage, imgOnline, imgOffline;
+
+
+        ConstraintLayout userItemLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            memberName = itemView.findViewById(R.id.memberName);
-            memberProfileImage = itemView.findViewById(R.id.profile_image);
-            memberCommunity = itemView.findViewById(R.id.memberCommunity);
-            imgOn = itemView.findViewById(R.id.imgOn);
-            imgOff = itemView.findViewById(R.id.imgOff);
+            name = itemView.findViewById(R.id.name);
+            community = itemView.findViewById(R.id.textView3);
+            userItemLayout = itemView.findViewById(R.id.user_item_layout);
+            shortName = itemView.findViewById(R.id.short_name);
+            profileImage = itemView.findViewById(R.id.profile_image);
 
+            imgOnline = itemView.findViewById(R.id.img_online);
+            imgOffline = itemView.findViewById(R.id.img_offline);
         }
     }
+
+
+    private String getShortName() {
+        String shortName = "";
+        String[] name = currentUser.getName().split(" ");
+
+        shortName = shortName + name[0].substring(0, 1);
+        shortName = shortName + name[name.length - 1].substring(0, 1);
+
+
+//        for (String n : name) {
+//            shortName = shortName + n.substring(0, 1);
+//        }
+
+        return shortName;
+    }
+
+
 }

@@ -124,6 +124,8 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
             }
         });
 
+
+
         return rootView;
     }
 
@@ -215,10 +217,9 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
             email = "null";
         }
 
-        if (!idEditText.getText().toString().trim().isEmpty()){
+        if (!idEditText.getText().toString().trim().isEmpty()) {
             id = idEditText.getText().toString().trim();
         }
-
 
 
         return true;
@@ -255,6 +256,8 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
     }
 
 
+
+
     /**
      * Get User Security Level.
      */
@@ -278,15 +281,6 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
         return false;
     }
 
-
-    public interface MyFragmentListener {
-        void onFragmentLoaded();
-
-        void onFragmentFinished();
-
-        void newUser(User newUser);
-    }
-
     private void onLoad() {
         if (mListener != null) {
             mListener.onFragmentLoaded();
@@ -304,7 +298,6 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
             mListener.newUser(newUser);
         }
     }
-
 
     @Override
     public void onDestroy() {
@@ -340,6 +333,14 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
         } else {
             return false;
         }
+    }
+
+    public interface MyFragmentListener {
+        void onFragmentLoaded();
+
+        void onFragmentFinished();
+
+        void newUser(User newUser);
     }
 
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryDark"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Ahmed Moustafa"
+        tools:text="Ahmed Moustafa"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFF" />
 
@@ -27,7 +28,7 @@
         android:id="@+id/emailNav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ahmed.moustafa@ieee.com"
+        tools:text="ahmed.moustafa@ieee.com"
         android:textColor="#FFFF" />
 
 </LinearLayout>

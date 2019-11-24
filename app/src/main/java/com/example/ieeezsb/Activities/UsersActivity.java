@@ -1,6 +1,5 @@
 package com.example.ieeezsb.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ieeezsb.Adapters.UsersListAdapter;
+import com.example.ieeezsb.Adapters.UsersAdapter;
 import com.example.ieeezsb.Fragments.AddUserFragment;
 import com.example.ieeezsb.Fragments.AddUserFragment.MyFragmentListener;
 import com.example.ieeezsb.Interfaces.OnBackPressed;
@@ -44,9 +43,11 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
 
 
     private ArrayList<User> usersList = new ArrayList<>();
-    private UsersListAdapter usersAdapter;
+    private UsersAdapter usersAdapter;
 
     private FloatingActionButton fab;
+
+    private String userSecurityLevel;
 
 
     @Override
@@ -67,13 +68,16 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
+
+        initRecyclerView();
+        getAllUsers();
+
+
         // Init Floating Action Bar.
         fab = findViewById(R.id.add_user_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 AddUserFragment addUserFragment = new AddUserFragment();
                 addUserFragment.setArguments(getIntent().getExtras());
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -81,17 +85,15 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
                         .add(R.id.fragment_container, addUserFragment)
                         .addToBackStack(null)
                         .commit();
-
-
-
-
-
             }
         });
+        fab.hide();
 
 
-        initRecyclerView();
-        getAllUsers();
+
+
+
+
 
     }
 
@@ -101,7 +103,7 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
      */
     private void initRecyclerView() {
         RecyclerView usersRecyclerView = findViewById(R.id.user_recycler_view);
-        usersAdapter = new UsersListAdapter(this, usersList);
+        usersAdapter = new UsersAdapter(this, usersList);
         usersRecyclerView.setAdapter(usersAdapter);
         usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -119,6 +121,14 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     User user = data.getValue(User.class);
                     usersList.add(user);
+                    if (mFirebaseUser.getUid().equals(user.getId())) {
+                        userSecurityLevel = user.getSecurityLevel();
+                        if (userSecurityLevel.equals("10")) {
+                            fab.show();
+                        } else {
+                            fab.hide();
+                        }
+                    }
                 }
                 usersAdapter.notifyDataSetChanged();
             }
@@ -144,6 +154,11 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
         } else { // Create user with specific ID.
             usersDatabase.child(newUser.getId()).setValue(newUser);
         }
+
+
+
+
+
     }
 
 
@@ -178,7 +193,6 @@ public class UsersActivity extends AppCompatActivity implements MyFragmentListen
         super.onStart();
         status("online");
     }
-
 
     @Override
     public void onFragmentLoaded() {
