@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSROOMFragment extends Fragment {
+public class ROOMSFragment extends Fragment {
     private ImageButton sendBtn;
     private EditText msgEditText;
     private RecyclerView rvMessages ;
@@ -47,7 +47,7 @@ public class CSROOMFragment extends Fragment {
     private String roomDatabase = null;
 
 
-    public CSROOMFragment(String roomDatabase){
+    public ROOMSFragment(String roomDatabase){
         this.roomDatabase = roomDatabase;
     }
 

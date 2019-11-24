@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.ieeezsb.Activities.HomeActivity;
+import com.example.ieeezsb.LoginActivity;
 import com.example.ieeezsb.Models.User;
 import com.example.ieeezsb.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +42,7 @@ import com.google.firebase.storage.UploadTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements ChangePasswordDialog.ChangePasswordListener {
 
     private static final int PICK_IMAGE = 1;
 
@@ -52,6 +59,7 @@ public class SettingsFragment extends Fragment {
     private Uri imageUri;
     private boolean changeImage;
     private User user;
+    private Button btnChangePassword;
 
     /**
      * Prevent app to crash while loading the photo.
@@ -85,6 +93,7 @@ public class SettingsFragment extends Fragment {
         phone = rootView.findViewById(R.id.phone_editText);
         shortName = rootView.findViewById(R.id.shortenName);
         changeImage = true;
+        btnChangePassword = rootView.findViewById(R.id.changePass);
 
         getUser();
 
@@ -140,6 +149,17 @@ public class SettingsFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                ChangePasswordDialog dialog = new ChangePasswordDialog();
+                dialog.setTargetFragment(SettingsFragment.this, 1);
+                dialog.show(getFragmentManager(), "MyCustomDialog");
             }
         });
 
@@ -228,4 +248,26 @@ public class SettingsFragment extends Fragment {
     }
 
 
+    @Override
+    public void applyTexts(String currentPass, String newPass) {
+
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+       final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        fUser.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(getContext(), "Password Updated", Toast.LENGTH_LONG).show();
+                    mAuth.signOut();
+                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(loginIntent);
+                    getActivity().finish();
+                } else {
+                    Toast.makeText(getContext(), "Error In Changing Password", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
 }

@@ -14,7 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
-import com.example.ieeezsb.Fragments.CSROOMFragment;
+import com.example.ieeezsb.Fragments.ROOMSFragment;
 import com.example.ieeezsb.Fragments.HomeFragment;
 import com.example.ieeezsb.Fragments.SettingsFragment;
 import com.example.ieeezsb.LoginActivity;
@@ -85,6 +85,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 nameNav.setText(user.getName());
                 emailNav.setText(user.getEmail());
                 AllMethodsCommunity.communityOfUser = user.getCommunity();
+                AllMethodsCommunity.securityLevel = user.getSecurityLevel();
                 if (user.getProfileImage().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
@@ -146,7 +147,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void logOut() {
+    public  void logOut() {
         firebaseAuth.signOut();
         sendToLogin();
     }
@@ -184,32 +185,56 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(AllMethodsCommunity.communityOfUser.equals("CS") || AllMethodsCommunity.communityOfUser.equals("CS Chairman")){
             getSupportActionBar().setTitle("CS ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new CSROOMFragment("CS")).commit();
-        } else if (AllMethodsCommunity.communityOfUser.equals("RAS")){
+                    new ROOMSFragment("CS")).commit();
+        } else if (AllMethodsCommunity.communityOfUser.equals("RAS" ) || AllMethodsCommunity.communityOfUser.equals("RAS Chairman")){
 
             getSupportActionBar().setTitle("RAS ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new CSROOMFragment("RAS")).commit();
+                    new ROOMSFragment("RAS")).commit();
 
 
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Logistics") ){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Operations")  || AllMethodsCommunity.communityOfUser.equals("Operations Chairman")){
 
-            getSupportActionBar().setTitle("Logistics ROOM");
+            getSupportActionBar().setTitle("Operations ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new CSROOMFragment("Logistics")).commit();
+                    new ROOMSFragment("Operations")).commit();
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Media")){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Media") || AllMethodsCommunity.communityOfUser.equals("Media Chairman")){
 
             getSupportActionBar().setTitle("Media ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new CSROOMFragment("Media")).commit();
+                    new ROOMSFragment("Media")).commit();
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Markting")){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Marketing") || AllMethodsCommunity.communityOfUser.equals("Marketing Chairman")){
 
-            getSupportActionBar().setTitle("Markting ROOM");
+            getSupportActionBar().setTitle("Marketing ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new CSROOMFragment("Markting")).commit();
+                    new ROOMSFragment("Marketing")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("PR&FR") || AllMethodsCommunity.communityOfUser.equals("PR&FR Chairman")){
+
+            getSupportActionBar().setTitle("PR&FR ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("PRandFR")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("TA&M") || AllMethodsCommunity.communityOfUser.equals("TA&M Chairman")){
+
+            getSupportActionBar().setTitle("TA&M ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("TAandM")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("M&E") || AllMethodsCommunity.communityOfUser.equals("M&E Chairman")){
+
+            getSupportActionBar().setTitle("M&E ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("MandE")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.equals("High Board")){
+
+            getSupportActionBar().setTitle("Board ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("Board")).commit();
 
         }
     }
