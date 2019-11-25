@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="318dp"
         android:layout_below="@id/add_user_toolbar"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="230dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="16dp">
