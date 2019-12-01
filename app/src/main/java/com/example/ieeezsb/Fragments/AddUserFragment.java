@@ -249,7 +249,7 @@ public class AddUserFragment extends Fragment implements OnBackPressed {
                 "null",
                 "null",
                 getSecurityLevel(),
-                id);
+                id,"member");
 
 
         newUser(user);

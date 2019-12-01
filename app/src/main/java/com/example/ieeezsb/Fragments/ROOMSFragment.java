@@ -94,8 +94,6 @@ public class ROOMSFragment extends Fragment {
                 message.setKey(dataSnapshot.getKey());
                 msgList.add(message);
                 displayMessages(msgList);
-
-
             }
 
             @Override

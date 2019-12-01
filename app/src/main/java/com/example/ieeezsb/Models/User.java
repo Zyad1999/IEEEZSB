@@ -2,11 +2,11 @@ package com.example.ieeezsb.Models;
 
 public class User {
 
-    private String name, about, email, personalMail, phone, community, profileImage, messagingToken, securityLevel, id;
+    private String name, about, email, personalMail, phone, community, profileImage, messagingToken, securityLevel, id ,position;
     private String chatStatus;
 
 
-    public User(String name, String about, String email, String personalMail, String phone, String community, String chatStatus, String profileImage, String messagingToken, String securityLevel, String id) {
+    public User(String name, String about, String email, String personalMail, String phone, String community, String chatStatus, String profileImage, String messagingToken, String securityLevel, String id, String position) {
         this.name = name;
         this.about = about;
         this.email = email;
@@ -18,6 +18,8 @@ public class User {
         this.messagingToken = messagingToken;
         this.securityLevel = securityLevel;
         this.id = id;
+        this.position = position;
+
     }
 
     public User() {
@@ -111,6 +113,11 @@ public class User {
         this.id = id;
     }
 
+    public String getPosition() { return position; }
+    public void setPosition(String position) { this.position = position; }
+
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -123,6 +130,7 @@ public class User {
                 ", profileImage='" + profileImage + '\'' +
                 ", messagingToken='" + messagingToken + '\'' +
                 ", securityLevel='" + securityLevel + '\'' +
+                ", position='" + position + '\'' +
                 ", id='" + id + '\'' +
                 ", chatStatus=" + chatStatus +
                 '}';

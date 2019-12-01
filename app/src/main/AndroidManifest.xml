@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.Sending_Tasks_Activity"></activity>
+        <activity android:name=".Activities.TasksActivity" />
         <activity
             android:name=".Activities.UsersActivity"
             android:parentActivityName=".Activities.HomeActivity" />

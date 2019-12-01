@@ -26,16 +26,15 @@
 
 
 
-
     </group>
 
     <item android:title="Utilities">
         <menu>
 
             <item
-                android:id="@+id/nav_broadcast"
+                android:id="@+id/nav_tasks"
                 android:icon="@drawable/ic_fast_forward"
-                android:title="BroadCast Message" />
+                android:title="Tasks" />
 
             <item
                 android:id="@+id/nav_settings"
