@@ -2,6 +2,7 @@ package com.example.ieeezsb.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference reference;
     private StorageReference storageReference;
     private User user;
+    private NavigationView navigationView;
     private String my_community ;
 
     @Override
@@ -54,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -86,6 +88,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 my_community = user.getCommunity().toLowerCase();
                 emailNav.setText(user.getEmail());
                 AllMethodsCommunity.communityOfUser = user.getCommunity();
+                AllMethodsCommunity.securityLevel = user.getSecurityLevel();
+                hideItemMenu();
+
                 if (user.getProfileImage().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
@@ -130,6 +135,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_chat:
                 chatToOpen();
                 break;
+            case R.id.nav_chat_board:
+                openChatBoard();
+                break;
             case R.id.nav_home:
                 getSupportActionBar().setTitle("Home");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -144,12 +152,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.nav_tasks:
                 if (my_community.contains("chairman")){
-                    Intent i3 = new Intent(HomeActivity.this , Sending_Tasks_Activity.class);
-                    startActivity(i3);
+                   // Intent i3 = new Intent(HomeActivity.this , Sending_Tasks_Activity.class);
+                    //startActivity(i3);
                 }
                 else {
-                    Intent i4 = new Intent(HomeActivity.this,TasksActivity.class);
-                    startActivity(i4);
+                   // Intent i4 = new Intent(HomeActivity.this,TasksActivity.class);
+                    //startActivity(i4);
                 }
                 break;
         }
@@ -177,18 +185,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         status("online");
+        hideItemMenu();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         status("offline");
+        hideItemMenu();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         status("online");
+        hideItemMenu();
     }
 
     public void chatToOpen(){
@@ -196,7 +207,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             getSupportActionBar().setTitle("CS ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ROOMSFragment("CS")).commit();
-        } else if (AllMethodsCommunity.communityOfUser.equals("RAS")){
+        } else if (AllMethodsCommunity.communityOfUser.equals("RAS") || AllMethodsCommunity.communityOfUser.equals("RAS Chairman")){
 
             getSupportActionBar().setTitle("RAS ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -204,24 +215,63 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Logistics") ){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Operations") || AllMethodsCommunity.communityOfUser.equals("Operations Chairman") ){
 
-            getSupportActionBar().setTitle("Logistics ROOM");
+            getSupportActionBar().setTitle("Operations ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ROOMSFragment("Logistics")).commit();
+                    new ROOMSFragment("Operations")).commit();
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Media")){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Media")  || AllMethodsCommunity.communityOfUser.equals("Media Chairman")){
 
             getSupportActionBar().setTitle("Media ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ROOMSFragment("Media")).commit();
 
-        }else if (AllMethodsCommunity.communityOfUser.equals("Markting")){
+        }else if (AllMethodsCommunity.communityOfUser.equals("Marketing") || AllMethodsCommunity.communityOfUser.equals("Marketing Chairman")){
 
-            getSupportActionBar().setTitle("Markting ROOM");
+            getSupportActionBar().setTitle("Marketing ROOM");
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ROOMSFragment("Markting")).commit();
+                    new ROOMSFragment("Marketing")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("PR&FR") || AllMethodsCommunity.communityOfUser.equals("PR&FR Chairman")){
+
+            getSupportActionBar().setTitle("PR&FR ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("PRandFR")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("TA&M") || AllMethodsCommunity.communityOfUser.equals("TA&M Chairman")){
+
+            getSupportActionBar().setTitle("TA&M ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("TAandM")).commit();
+
+        }else if (AllMethodsCommunity.communityOfUser.equals("M&E") || AllMethodsCommunity.communityOfUser.equals("M&E Chairman")){
+
+            getSupportActionBar().setTitle("M&E ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("MandE")).commit();
 
         }
+    }
+    public  void openChatBoard(){
+        if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.equals("High Board")){
+
+            getSupportActionBar().setTitle("Board ROOM");
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ROOMSFragment("Board")).commit();
+
+        }
+
+    }
+    void hideItemMenu(){
+        Menu menu = navigationView.getMenu();
+        MenuItem target = menu.findItem(R.id.nav_chat_board);
+        if (AllMethodsCommunity.communityOfUser.contains("Chairman") || AllMethodsCommunity.communityOfUser.contains("Board")){
+
+            target.setVisible(true);
+        } else {
+            target.setVisible(false);
+        }
+
     }
 }
