@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/btn_send_task"
+        android:title="Send"
+        android:icon="@drawable/ic_send"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/switch_to_tasks"
+        android:title="Sent tasks"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/remove_tasks"
+        android:title="Remove tasks"
+        app:showAsAction="never"
+        />
+</menu>
