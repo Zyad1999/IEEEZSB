@@ -54,7 +54,7 @@ public class TasksActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        // Check if the current user is a head or not
+        // Check if the current user is a head or noot
         if(user != null){
             id = user.getUid();
             databaseReference = firebaseDatabase.getReference("users").child(id);
